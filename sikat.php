@@ -3,13 +3,15 @@ date_default_timezone_set('Asia/Jakarta');
 include "function.php";
 ulang:
 // function change(){
-echo color("green","                     V I C K Y \n");
-echo color("white","           Time  : ".date('[d-m-Y] [H:i:s]')."   \n");
-echo color("white","                    G O J E K         \n");
-echo color("yellow","                  Format Kode 62*** \n");
+echo color("green","V I C K Y \n");
+echo color("blue","=========================================\n");
+echo color("white","Time  : ".date('[d-m-Y] [H:i:s]')."   \n");
+echo color("green","VOUCHER GOJEK\n");
+echo color("blue","=========================================\n");
+echo color("yellow","Format Kode 62*** \n");
         $nama = nama();
         $email = str_replace(" ", "", $nama) . mt_rand(100, 999);
-        echo color("white"," NOMOR  : ");
+        echo color("white"," Masukan Nomor  : ");
         // $no = trim(fgets(STDIN));
         $nohp = trim(fgets(STDIN));
         $nohp = str_replace("62","62",$nohp);
@@ -36,19 +38,19 @@ echo color("yellow","                  Format Kode 62*** \n");
         $register = request("/v5/customers", null, $data);
         if(strpos($register, '"otp_token"')){
         $otptoken = getStr('"otp_token":"','"',$register);
-        echo color("white"," KODE OTP..")."\n";
+        echo color("white"," Masukan Kode OTP ")."\n";
         otp:
-        echo color("white"," Otp : ");
+        echo color("green"," OTP : ");
         $otp = trim(fgets(STDIN));
         $data1 = '{"client_name":"gojek:cons:android","data":{"otp":"' . $otp . '","otp_token":"' . $otptoken . '"},"client_secret":"83415d06-ec4e-11e6-a41b-6c40088ab51e"}';
         $verif = request("/v5/customers/phone/verify", null, $data1);
         if(strpos($verif, '"access_token"')){
-        echo color("white","BERHASIL MENDAFTAR\n");
+        echo color("white","PENDAFTARAN NOMOR BERHASIL\n");
         $token = getStr('"access_token":"','"',$verif);
         $uuid = getStr('"resource_owner_id":',',',$verif);
         echo color("white","+] Your access token : ".$token."\n\n");
         save("token.txt",$token); 
-        echo color("white","\n▬▬▬▬▬▬▬▬▬▬▬▬CLAIM VOUCHER▬▬▬▬▬▬▬▬▬▬▬▬");
+        echo color("green","\n            CLAIM VOUCHER        ");
         reff:
         $data = '{"referral_code":"G-S64JWN3"}';    
         $claim = request("/customer_referrals/v1/campaign/enrolment", $token, $data);
@@ -56,7 +58,7 @@ echo color("yellow","                  Format Kode 62*** \n");
         if(strpos($claim, 'Promo kamu sudah bisa dipakai')){
         echo "\n".color("green","+] Message: ".$message);
 	}
-	echo "\n".color("white","CLAIM A..");
+	echo "\n".color("green","Voucher ke 1");
         echo "\n".color("white"," Please wait");
         for($a=1;$a<=3;$a++){
         echo color("white",".");
@@ -70,7 +72,7 @@ echo color("yellow","                  Format Kode 62*** \n");
         }else{
         echo "\n".color("white"," Message: ".$message);
 	gocar:
-        echo "\n".color("white"," CLAIM B.. ");
+        echo "\n".color("green"," Voucher ke 2 ");
         echo "\n".color("white"," Please wait");
         for($a=1;$a<=3;$a++){
         echo color("white",".");
@@ -84,7 +86,7 @@ echo color("yellow","                  Format Kode 62*** \n");
         }else{
         echo "\n".color("white"," Message: ".$message);
         gofood:
-        echo "\n".color("white"," CLAIM C..");
+        echo "\n".color("green"," Voucher ke 3");
         echo "\n".color("white"," Please wait");
         for($a=1;$a<=3;$a++){
         echo color("white",".");
@@ -93,7 +95,7 @@ echo color("yellow","                  Format Kode 62*** \n");
         $code1 = request('/go-promotions/v1/promotions/enrollments', $token, '{"promo_code":"COBAGOFOOD2206"}');
         $message = fetch_value($code1,'"message":"','"');
         echo "\n".color("white"," Message: ".$message);
-        echo "\n".color("white"," CLAIM D..");
+        echo "\n".color("green"," Voucher ke 4");
         echo "\n".color("white"," Please wait");
         for($a=1;$a<=3;$a++){
         echo color("white",".");
